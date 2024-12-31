@@ -23,6 +23,9 @@ class SkillShareServer {
   start(port) {
     this.server.listen(port);
   }
+  stop() {
+    this.server.close();
+  }
 }
 
 import {Router} from "./router.mjs";
@@ -113,7 +116,7 @@ SkillShareServer.prototype.talkResponse = function() {
 router.add("GET", /^\/talks$/, async (server, request) => {
   let tag = /"(.*)"/.exec(request.headers["if-none-match"]);
   let wait = /\bwait=(\d+)/.exec(request.headers["prefer"]);
-  if (!tag || tag[1] !== server.version) {
+  if (!tag || tag[1] != server.version) {
     return server.talkResponse();
   } else if (!wait) {
     return {status: 304};
@@ -127,7 +130,7 @@ SkillShareServer.prototype.waitForChanges = function(time) {
     this.waiting.push(resolve);
     setTimeout(() => {
       if (!this.waiting.includes(resolve)) return;
-      this.waiting = this.waiting.filter(r => r !== resolve);
+      this.waiting = this.waiting.filter(r => r != resolve);
       resolve({status: 304});
     }, time * 1000);
   });

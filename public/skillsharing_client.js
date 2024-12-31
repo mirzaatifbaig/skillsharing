@@ -1,10 +1,10 @@
 function handleAction(state, action) {
-  if (action.type ==="setUser") {
+  if (action.type == "setUser") {
     localStorage.setItem("userName", action.user);
     return {...state, user: action.user};
-  } else if (action.type ==="setTalks") {
+  } else if (action.type == "setTalks") {
     return {...state, talks: action.talks};
-  } else if (action.type ==="newTalk") {
+  } else if (action.type == "newTalk") {
     fetchOK(talkURL(action.title), {
       method: "PUT",
       headers: {"Content-Type": "application/json"},
@@ -13,10 +13,10 @@ function handleAction(state, action) {
         summary: action.summary
       })
     }).catch(reportError);
-  } else if (action.type ==="deleteTalk") {
+  } else if (action.type == "deleteTalk") {
     fetchOK(talkURL(action.talk), {method: "DELETE"})
       .catch(reportError);
-  } else if (action.type ==="newComment") {
+  } else if (action.type == "newComment") {
     fetchOK(talkURL(action.talk) + "/comments", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
@@ -127,13 +127,13 @@ async function pollTalks(update) {
       await new Promise(resolve => setTimeout(resolve, 500));
       continue;
     }
-    if (response.status ===304) continue;
+    if (response.status == 304) continue;
     tag = response.headers.get("ETag");
     update(await response.json());
   }
 }
 
-let SkillShareApp = class SkillShareApp {
+var SkillShareApp = class SkillShareApp {
   constructor(state, dispatch) {
     this.dispatch = dispatch;
     this.talkDOM = elt("div", {className: "talks"});
