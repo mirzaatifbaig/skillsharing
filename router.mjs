@@ -2,6 +2,7 @@ export class Router {
   constructor() {
     this.routes = [];
   }
+
   add(method, url, handler) {
     this.routes.push({method, url, handler});
   }
