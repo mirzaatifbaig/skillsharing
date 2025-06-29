@@ -3,15 +3,13 @@
   "version": "1.0.0",
   "main": "skillsharing_server.js",
   "description": "Skill-sharing website and server using JavaScript",
+  "license": "MIT",
+  "type": "module",
   "dependencies": {
     "express": "^5.1.0",
     "serve-static": "^1.15.0"
   },
-  "license": "MIT",
-  "repository": {
-    "type": "module"
-  },
   "scripts": {
     "start": "node server.js"
-  },
+  }
 }

@@ -1,19 +1,17 @@
-const express = require("express");
-const app = express();
-const path = require("path");
+import express from "express";
 
 let talks = Object.create(null);
-
-app.use(express.json());
-app.use(express.static("public")); 
-
 let etag = "0";
+
+const app = express();
+app.use(express.json());
+
 app.get("/talks", (req, res) => {
   if (req.headers["if-none-match"] === etag) {
     res.status(304).end();
     return;
   }
-  res.set("ETag", etag);
+  res.setHeader("ETag", etag);
   res.json(Object.values(talks));
 });
 
@@ -36,7 +34,7 @@ app.delete("/talks/:title", (req, res) => {
 });
 
 app.post("/talks/:title/comments", (req, res) => {
-  let talk = talks[req.params.title];
+  const talk = talks[req.params.title];
   if (talk) {
     talk.comments.push({
       author: req.body.author,
@@ -49,4 +47,6 @@ app.post("/talks/:title/comments", (req, res) => {
   }
 });
 
-app.listen(3000, () => console.log("Server running at http://localhost:3000"));
+export default function handler(req, res) {
+  return app(req, res); // Delegate to Express
+}
