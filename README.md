@@ -10,7 +10,7 @@ Users can:
 
 ---
 
-# 👉 **[Try the Live App Here](https://skillsharing-mi5s.vercel.app/)**
+# 👉 **[Try the Live App Here](https://skillsharing-alpha.vercel.app/)**
 
 ---
 
